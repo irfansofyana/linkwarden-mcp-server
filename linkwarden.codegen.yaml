@@ -1,0 +1,5 @@
+package: linkwarden
+output: pkg/linkwarden/client.go
+generate:
+  client: true
+  models: true
