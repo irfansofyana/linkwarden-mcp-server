@@ -694,7 +694,6 @@ paths:
                         maxLength: 50
                         example: "test"
                   example: [{ "id": 1, "name": "test" }]
-                  nullable: true
                 collection:
                   type: object
                   properties:
@@ -708,7 +707,6 @@ paths:
                   example:
                     id: 1
                     name: "Unorganized"
-                  nullable: true
       responses:
         "200":
           description: Successfully created the link.
@@ -857,27 +855,21 @@ paths:
                 name:
                   type: string
                   maxLength: 2048
-                  nullable: true
                 url:
                   type: string
                   maxLength: 2048
-                  nullable: true
                 description:
                   type: string
                   maxLength: 2048
-                  nullable: true
                 icon:
                   type: string
                   maxLength: 50
-                  nullable: true
                 iconWeight:
                   type: string
                   maxLength: 50
-                  nullable: true
                 color:
                   type: string
                   maxLength: 10
-                  nullable: true
                 tags:
                   type: array
                   items:
@@ -885,7 +877,6 @@ paths:
                     properties:
                       id:
                         type: integer
-                        nullable: true
                       name:
                         type: string
                         maxLength: 50
@@ -903,7 +894,6 @@ paths:
                     properties:
                       id:
                         type: integer
-                        nullable: true
       responses:
         "200":
           description: Link successfully updated.

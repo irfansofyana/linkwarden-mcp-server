@@ -30,8 +30,21 @@ func NewToolSets(
 			DeleteCollectionById(obs, client),
 		)
 
+	link := toolsets.NewToolset("link", "Linkwarden link related tools").
+		AddReadTools(
+			GetAllLinks(obs, client),
+			GetLinkById(obs, client),
+		).
+		AddWriteTools(
+			CreateLink(obs, client),
+			DeleteLinkById(obs, client),
+			DeleteLinks(obs, client),
+			ArchiveLink(obs, client),
+		)
+
 	toolsetGroup.AddToolset(search)
 	toolsetGroup.AddToolset(collection)
+	toolsetGroup.AddToolset(link)
 
 	if err := toolsetGroup.EnableToolsets(enabledToolsets); err != nil {
 		return nil, err

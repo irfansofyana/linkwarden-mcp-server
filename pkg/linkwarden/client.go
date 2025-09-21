@@ -705,13 +705,13 @@ type CreateLinkJSONBody struct {
 	Collection *struct {
 		Id   *int    `json:"id,omitempty"`
 		Name *string `json:"name,omitempty"`
-	} `json:"collection"`
+	} `json:"collection,omitempty"`
 	Description *string `json:"description"`
 	Name        *string `json:"name"`
 	Tags        *[]struct {
 		Id   *int    `json:"id,omitempty"`
 		Name *string `json:"name,omitempty"`
-	} `json:"tags"`
+	} `json:"tags,omitempty"`
 	Type *CreateLinkJSONBodyType `json:"type"`
 	Url  *string                 `json:"url"`
 }
@@ -738,20 +738,20 @@ type UpdateLinkJSONBody struct {
 		Id      *int `json:"id,omitempty"`
 		OwnerId *int `json:"ownerId,omitempty"`
 	} `json:"collection,omitempty"`
-	Color       *string `json:"color"`
-	Description *string `json:"description"`
-	Icon        *string `json:"icon"`
-	IconWeight  *string `json:"iconWeight"`
+	Color       *string `json:"color,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Icon        *string `json:"icon,omitempty"`
+	IconWeight  *string `json:"iconWeight,omitempty"`
 	Id          *int    `json:"id,omitempty"`
-	Name        *string `json:"name"`
+	Name        *string `json:"name,omitempty"`
 	PinnedBy    *[]struct {
-		Id *int `json:"id"`
+		Id *int `json:"id,omitempty"`
 	} `json:"pinnedBy,omitempty"`
 	Tags *[]struct {
-		Id   *int    `json:"id"`
+		Id   *int    `json:"id,omitempty"`
 		Name *string `json:"name,omitempty"`
 	} `json:"tags,omitempty"`
-	Url *string `json:"url"`
+	Url *string `json:"url,omitempty"`
 }
 
 // PostApiV1MigrationMultipartBody defines parameters for PostApiV1Migration.
