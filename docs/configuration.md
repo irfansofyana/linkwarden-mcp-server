@@ -10,7 +10,7 @@ The linkwarden-mcp-server supports multiple configuration methods to suit differ
 ./linkwarden-mcp-server \
   --base-url https://your-linkwarden-instance.com \
   --token your-api-token-here \
-  --toolsets search,collection \
+  --toolsets search,collection,link \
   --read-only \
   --config /path/to/config.yaml \
   --log-file /var/log/linkwarden-mcp-server.log
@@ -23,7 +23,7 @@ All configuration options can be set using environment variables. For the Linkwa
 ```bash
 export LINKWARDEN_BASE_URL=https://your-linkwarden-instance.com
 export LINKWARDEN_TOKEN=your-api-token-here
-export TOOLSETS=search,collection
+export TOOLSETS=search,collection,link
 export READ_ONLY=true
 export CONFIG=/path/to/config.yaml
 export LOG_FILE=/var/log/linkwarden-mcp-server.log
@@ -45,7 +45,7 @@ export LOG_FILE=/var/log/linkwarden-mcp-server.log
 
 | Option | Environment Variable | Description | Default | Example |
 |--------|---------------------|-------------|---------|---------|
-| `--toolsets` | `TOOLSETS` | Comma-separated list of toolsets to enable | `all` | `search,collection` |
+| `--toolsets` | `TOOLSETS` | Comma-separated list of toolsets to enable | `all` | `search,collection,link` |
 | `--read-only` | `READ_ONLY` | Enable read-only mode (disables write operations) | `false` | `true` |
 | `--log-file` | `LOG_FILE` | Path to log file | - | `/var/log/linkwarden-mcp-server.log` |
 
@@ -63,6 +63,7 @@ Configuration is applied in this order (higher priority overrides lower):
 
 - `search`: Link searching functionality
 - `collection`: Collection management operations
+- `link`: Link management operations
 
 ## Available Features
 
@@ -72,6 +73,14 @@ Configuration is applied in this order (higher priority overrides lower):
 - Filter by collection ID and tag ID
 - Sort results and pagination support
 - Search within public collections
+
+### Link Management
+- List all links with comprehensive filtering options
+- Get link details by ID
+- Create new links with rich metadata (name, URL, description, tags, collection)
+- Delete individual or multiple links
+- Archive links for preservation
+- Support for link organization with collections and tags
 
 ### Collection Management
 - List all collections
@@ -101,7 +110,7 @@ Configuration is applied in this order (higher priority overrides lower):
 ./linkwarden-mcp-server \
   --base-url https://your-linkwarden-instance.com \
   --token your-api-token-here \
-  --toolsets search
+  --toolsets search,link
 ```
 
 #### Read-Only Mode
@@ -129,6 +138,12 @@ The API token needs permissions based on the toolsets you enable:
 - Read collections: `collections:read`
 - Create collections: `collections:write`
 - Delete collections: `collections:delete`
+
+#### Link Toolset
+- Read links: `links:read`
+- Create links: `links:write`
+- Delete links: `links:delete`
+- Archive links: `links:write`
 
 #### Search Toolset
 - Search links: `links:read`
@@ -215,7 +230,7 @@ ERROR: failed to load config: invalid configuration file format
 ```bash
 ERROR: invalid toolset name: "invalid-toolset"
 ```
-**Solution**: Use only valid toolset names: `search`, `collection`
+**Solution**: Use only valid toolset names: `search`, `collection`, `link`
 
 #### Authentication Failed
 ```bash

@@ -252,6 +252,237 @@ Deletes a collection by its ID.
 }
 ```
 
+## Link Toolset
+
+### Read Operations
+
+#### get_all_links
+
+Retrieves all links from your Linkwarden instance with comprehensive filtering options.
+
+**Parameters:**
+- `sort` (optional, number): A numeric value to sort the results
+- `cursor` (optional, number): A numeric value for pagination
+- `collectionId` (optional, number): Filter by collection ID
+- `tagId` (optional, number): Filter by tag ID
+- `pinnedOnly` (optional, boolean): Whether to return only pinned links
+- `searchQueryString` (optional, string): A string to filter search results
+- `searchByName` (optional, boolean): Whether to search by name
+- `searchByUrl` (optional, boolean): Whether to search by URL
+- `searchByDescription` (optional, boolean): Whether to search by description
+- `searchByTextContent` (optional, boolean): Whether to search by text content
+- `searchByTags` (optional, boolean): Whether to search by tags
+
+**Returns:**
+```json
+{
+  "links": [
+    {
+      "id": 1,
+      "name": "Example Website",
+      "url": "https://example.com",
+      "description": "An example website",
+      "type": "url",
+      "tags": [
+        {
+          "id": 1,
+          "name": "example"
+        }
+      ],
+      "pinned": false,
+      "collectionId": 1,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "cursor": 0,
+  "hasMore": false
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "get_all_links",
+  "arguments": {
+    "collectionId": 1,
+    "searchQueryString": "tutorial",
+    "searchByName": true,
+    "sort": 0
+  }
+}
+```
+
+#### get_link_by_id
+
+Retrieves a specific link by its ID.
+
+**Parameters:**
+- `id` (required, number): The ID of the link to retrieve
+
+**Returns:**
+```json
+{
+  "id": 1,
+  "name": "Example Website",
+  "url": "https://example.com",
+  "description": "An example website",
+  "type": "url",
+  "tags": [
+    {
+      "id": 1,
+      "name": "example"
+    }
+  ],
+  "pinned": false,
+  "collectionId": 1,
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "get_link_by_id",
+  "arguments": {
+    "id": 1
+  }
+}
+```
+
+### Write Operations
+
+#### create_link
+
+Creates a new link in your Linkwarden instance.
+
+**Parameters:**
+- `name` (optional, string): The name of the link
+- `url` (optional, string): The URL of the link
+- `description` (optional, string): The description of the link
+- `type` (optional, string): The type of the link (url, image, pdf)
+- `collectionId` (optional, number): The ID of the collection to add the link to
+- `collectionName` (optional, string): The name of the collection to add the link to
+- `tags` (optional, array): List of tags to add to the link. Each tag should have 'id' and 'name' fields
+
+**Returns:**
+```json
+{
+  "id": 2,
+  "name": "New Link",
+  "url": "https://example.com/new",
+  "description": "A newly created link",
+  "type": "url",
+  "tags": [
+    {
+      "id": 1,
+      "name": "new"
+    }
+  ],
+  "pinned": false,
+  "collectionId": 1,
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "create_link",
+  "arguments": {
+    "name": "Go Documentation",
+    "url": "https://golang.org/doc/",
+    "description": "Official Go programming language documentation",
+    "type": "url",
+    "collectionId": 1,
+    "tags": [
+      {
+        "id": 1,
+        "name": "programming"
+      },
+      {
+        "id": 2,
+        "name": "golang"
+      }
+    ]
+  }
+}
+```
+
+#### delete_link_by_id
+
+Deletes a link by its ID.
+
+**Parameters:**
+- `id` (required, number): The ID of the link to delete
+
+**Returns:**
+```json
+{
+  "message": "Link deleted successfully"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "delete_link_by_id",
+  "arguments": {
+    "id": 2
+  }
+}
+```
+
+#### delete_links
+
+Deletes multiple links by their IDs.
+
+**Parameters:**
+- `linkIds` (required, array): List of link IDs to delete
+
+**Returns:**
+```json
+{
+  "message": "Links deleted successfully"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "delete_links",
+  "arguments": {
+    "linkIds": [1, 2, 3]
+  }
+}
+```
+
+#### archive_link
+
+Archives a link by its ID.
+
+**Parameters:**
+- `id` (required, number): The ID of the link to archive
+
+**Returns:**
+```json
+{
+  "message": "Link archived successfully"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "archive_link",
+  "arguments": {
+    "id": 1
+  }
+}
+```
+
 ## Search Toolset
 
 #### search_links
@@ -354,9 +585,76 @@ Common error types:
     "searchQueryString": "documentation"
   }
 }
+
+// Create a new link
+{
+  "name": "create_link",
+  "arguments": {
+    "name": "Project Documentation",
+    "url": "https://docs.example.com",
+    "description": "Official project documentation",
+    "collectionId": 3,
+    "tags": [
+      {
+        "id": 1,
+        "name": "documentation"
+      }
+    ]
+  }
+}
 ```
 
-### 2. Public Collection Exploration
+### 2. Link Management Workflow
+
+```json
+// Get all links with filtering
+{
+  "name": "get_all_links",
+  "arguments": {
+    "collectionId": 1,
+    "pinnedOnly": true
+  }
+}
+
+// Create a new link
+{
+  "name": "create_link",
+  "arguments": {
+    "name": "Learning Resource",
+    "url": "https://example.com/learn",
+    "description": "A great learning resource",
+    "collectionId": 1,
+    "tags": [
+      {
+        "id": 1,
+        "name": "learning"
+      },
+      {
+        "id": 2,
+        "name": "tutorial"
+      }
+    ]
+  }
+}
+
+// Archive old links
+{
+  "name": "archive_link",
+  "arguments": {
+    "id": 5
+  }
+}
+
+// Delete multiple unwanted links
+{
+  "name": "delete_links",
+  "arguments": {
+    "linkIds": [10, 11, 12]
+  }
+}
+```
+
+### 3. Public Collection Exploration
 
 ```json
 // Get public collection details
@@ -435,7 +733,7 @@ Common error types:
       "args": [
         "--base-url", "https://your-linkwarden-instance.com",
         "--token", "your-api-token-here",
-        "--toolsets", "search,collection"
+        "--toolsets", "search,collection,link"
       ]
     }
   }
@@ -465,6 +763,21 @@ async def main():
         # Search for links
         result = await session.call_tool("search_links", {
             "searchQueryString": "tutorial"
+        })
+        print(result)
+
+        # Create a new link
+        result = await session.call_tool("create_link", {
+            "name": "Python Tutorial",
+            "url": "https://docs.python.org/3/tutorial/",
+            "description": "Official Python tutorial",
+            "collectionId": 1
+        })
+        print(result)
+
+        # Get all links in a collection
+        result = await session.call_tool("get_all_links", {
+            "collectionId": 1
         })
         print(result)
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Go-based MCP (Model Context Protocol) server that provides AI assistants with programmatic access to Linkwarden instances. The server implements a modular toolset system for managing bookmark collections, searching links, and accessing public collections.
+This is a Go-based MCP (Model Context Protocol) server that provides AI assistants with programmatic access to Linkwarden instances. The server implements a modular toolset system for managing bookmark collections, links, searching, and accessing public collections.
 
 ## Development Commands
 
@@ -85,7 +85,7 @@ make install
 
 ### Key Architectural Patterns
 
-- **Toolset Registration**: Tools are organized into toolsets (`search`, `collection`) that can be selectively enabled
+- **Toolset Registration**: Tools are organized into toolsets (`search`, `collection`, `link`) that can be selectively enabled
 - **Parameter Validation**: Comprehensive validation system in `tools_param.go` with type safety
 - **Read/Write Separation**: Each toolset supports read-only mode for production safety
 - **Configuration Flexibility**: Supports command-line flags, environment variables, and config files
@@ -120,6 +120,17 @@ make install
 **Write Tools:**
 - `create_collection`: Create new collection
 - `delete_collection_by_id`: Delete collection
+
+### Link Toolset
+**Read Tools:**
+- `get_all_links`: Retrieve all links with filtering and pagination
+- `get_link_by_id`: Get specific link details
+
+**Write Tools:**
+- `create_link`: Create new links with metadata and tags
+- `delete_link_by_id`: Delete existing links
+- `delete_links`: Delete multiple links by IDs
+- `archive_link`: Archive links by ID
 
 ### Search Toolset
 - `search_links`: Search links with filtering and pagination

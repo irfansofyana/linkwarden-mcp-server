@@ -5,6 +5,7 @@ A Model Context Protocol (MCP) server that provides AI assistants with programma
 ## Features
 
 - **Collection Management**: Create, read, and delete collections with full API support
+- **Link Management**: Create, read, archive, and delete links with comprehensive functionality
 - **Advanced Search**: Search links with powerful filtering and pagination
 - **Public Collection Access**: Access public collections and their metadata
 - **Toolset Selectivity**: Enable only the tools you need
@@ -56,7 +57,7 @@ The server can be configured using command-line flags, environment variables, or
 ./linkwarden-mcp-server \
   --base-url https://your-linkwarden-instance.com \
   --token your-api-token-here \
-  --toolsets search,collection
+  --toolsets search,collection,link
 ```
 
 #### Environment Variables
@@ -64,7 +65,7 @@ The server can be configured using command-line flags, environment variables, or
 ```bash
 export LINKWARDEN_BASE_URL=https://your-linkwarden-instance.com
 export LINKWARDEN_TOKEN=your-api-token-here
-export TOOLSETS=search,collection
+export TOOLSETS=search,collection,link
 ./linkwarden-mcp-server
 ```
 
@@ -84,6 +85,18 @@ export TOOLSETS=search,collection
 - `create_collection`: Create new collections
 - `delete_collection_by_id`: Delete existing collections
 
+### Link Toolset
+
+**Read Operations:**
+- `get_all_links`: Retrieve all links with filtering and pagination
+- `get_link_by_id`: Get specific link details
+
+**Write Operations:**
+- `create_link`: Create new links with metadata and tags
+- `delete_link_by_id`: Delete existing links
+- `delete_links`: Delete multiple links by IDs
+- `archive_link`: Archive links by ID
+
 ### Search Toolset
 
 - `search_links`: Search links with various filters including:
@@ -100,6 +113,14 @@ export TOOLSETS=search,collection
 - Filter by collection ID and tag ID
 - Sort results and pagination support
 - Search within public collections
+
+### Link Management
+- List all links with comprehensive filtering options
+- Get link details by ID
+- Create new links with rich metadata (name, URL, description, tags, collection)
+- Delete individual or multiple links
+- Archive links for preservation
+- Support for link organization with collections and tags
 
 ### Collection Management
 - List all collections
@@ -137,7 +158,7 @@ export TOOLSETS=search,collection
 ./linkwarden-mcp-server \
   --base-url https://your-linkwarden-instance.com \
   --token your-api-token-here \
-  --toolsets search
+  --toolsets search,link
 ```
 
 ## MCP Client Integration
@@ -255,7 +276,9 @@ For issues and questions:
 ## Changelog
 
 ### Latest Changes
-- Added comprehensive collection management toolset
+- Added comprehensive link management toolset
+- Implemented link creation, deletion, and archiving functionality
+- Enhanced collection management with full CRUD operations
 - Implemented public collection access tools
 - Enhanced search functionality with advanced filtering
 - Added read-only mode for production safety
