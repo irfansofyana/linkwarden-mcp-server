@@ -1,2 +1,6 @@
+# Binary outputs
+bin/
+
+# Log files
 logs
 lwmcp

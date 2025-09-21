@@ -8,12 +8,12 @@ help: ## Show this help message
 # Build the MCP server
 build: ## Build the MCP server binary
 	@echo "Building MCP server..."
-	go build -o bin/linkwarden-mcp-server ./cmd/server
+	go build -o bin/linkwarden-mcp-server ./cmd/linkwarden-mcp-server
 
 # Run the MCP server
 run: ## Run the MCP server
 	@echo "Running MCP server..."
-	go run ./cmd/server
+	go run ./cmd/linkwarden-mcp-server
 
 # Run tests
 test: ## Run all tests

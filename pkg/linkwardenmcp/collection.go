@@ -173,7 +173,6 @@ func CreateCollection(
 	)
 }
 
-
 // DeleteCollectionById returns a tool for deleting a collection by ID
 func DeleteCollectionById(
 	obs *observability.Observability,
