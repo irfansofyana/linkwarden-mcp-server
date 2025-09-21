@@ -124,7 +124,7 @@ func getDefaultLogPath() string {
 	execPath, err := os.Executable()
 	if err != nil {
 		// Fallback to temp directory if we can't determine executable path
-		return filepath.Join(os.TempDir(), "razorpay-mcp-server-logs")
+		return filepath.Join(os.TempDir(), "linkwarden-mcp-server-logs")
 	}
 
 	execDir := filepath.Dir(execPath)
