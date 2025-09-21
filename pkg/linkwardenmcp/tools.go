@@ -17,7 +17,21 @@ func NewToolSets(
 	search := toolsets.NewToolset("search", "Linkwarden search related tools").
 		AddReadTools(SearchLinks(obs, client))
 
+	collection := toolsets.NewToolset("collection", "Linkwarden collection related tools").
+		AddReadTools(
+			GetAllCollections(obs, client),
+			GetCollectionById(obs, client),
+			GetPublicCollectionsLinks(obs, client),
+			GetPublicCollectionsTags(obs, client),
+			GetPublicCollectionById(obs, client),
+		).
+		AddWriteTools(
+			CreateCollection(obs, client),
+			DeleteCollectionById(obs, client),
+		)
+
 	toolsetGroup.AddToolset(search)
+	toolsetGroup.AddToolset(collection)
 
 	if err := toolsetGroup.EnableToolsets(enabledToolsets); err != nil {
 		return nil, err
