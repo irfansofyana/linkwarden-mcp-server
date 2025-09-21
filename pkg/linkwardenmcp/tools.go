@@ -42,9 +42,18 @@ func NewToolSets(
 			ArchiveLink(obs, client),
 		)
 
+	tags := toolsets.NewToolset("tags", "Linkwarden tag related tools").
+		AddReadTools(
+			GetAllTags(obs, client),
+		).
+		AddWriteTools(
+			DeleteTagById(obs, client),
+		)
+
 	toolsetGroup.AddToolset(search)
 	toolsetGroup.AddToolset(collection)
 	toolsetGroup.AddToolset(link)
+	toolsetGroup.AddToolset(tags)
 
 	if err := toolsetGroup.EnableToolsets(enabledToolsets); err != nil {
 		return nil, err

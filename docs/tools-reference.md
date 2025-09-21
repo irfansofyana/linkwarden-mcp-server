@@ -483,6 +483,70 @@ Archives a link by its ID.
 }
 ```
 
+## Tags Toolset
+
+### Read Operations
+
+#### get_all_tags
+
+Retrieves all tags from your Linkwarden instance.
+
+**Parameters:** None
+
+**Returns:**
+```json
+{
+  "tags": [
+    {
+      "id": 1,
+      "name": "tutorial",
+      "color": "#10B981",
+      "count": 5
+    },
+    {
+      "id": 2,
+      "name": "documentation",
+      "color": "#3B82F6",
+      "count": 3
+    }
+  ]
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "get_all_tags",
+  "arguments": {}
+}
+```
+
+### Write Operations
+
+#### delete_tag_by_id
+
+Deletes a tag by its ID.
+
+**Parameters:**
+- `id` (required, number): The ID of the tag to delete
+
+**Returns:**
+```json
+{
+  "message": "Tag deleted successfully"
+}
+```
+
+**Example Usage:**
+```json
+{
+  "name": "delete_tag_by_id",
+  "arguments": {
+    "id": 1
+  }
+}
+```
+
 ## Search Toolset
 
 #### search_links
@@ -697,6 +761,23 @@ Common error types:
     "sort": 0
   }
 }
+
+### 4. Tag Management Workflow
+
+```json
+// Get all tags
+{
+  "name": "get_all_tags",
+  "arguments": {}
+}
+
+// Delete unused tags
+{
+  "name": "delete_tag_by_id",
+  "arguments": {
+    "id": 15
+  }
+}
 ```
 
 ## Best Practices
@@ -733,7 +814,7 @@ Common error types:
       "args": [
         "--base-url", "https://your-linkwarden-instance.com",
         "--token", "your-api-token-here",
-        "--toolsets", "search,collection,link"
+        "--toolsets", "search,collection,link,tags"
       ]
     }
   }

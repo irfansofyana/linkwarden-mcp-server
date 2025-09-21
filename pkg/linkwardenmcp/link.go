@@ -221,7 +221,7 @@ func CreateLink(
 		validator.ValidateAndAddOptionalString(args, "type")
 		validator.ValidateAndAddOptionalInt(args, "collectionId")
 		validator.ValidateAndAddOptionalString(args, "collectionName")
-		// validator.ValidateAndAddOptionalArray(args, "tags")
+		validator.ValidateAndAddOptionalArray(args, "tags")
 
 		if result, err := validator.HandleErrorsIfAny(); result != nil {
 			return result, err
@@ -308,7 +308,6 @@ func CreateLink(
 		handler,
 	)
 }
-
 
 // DeleteLinkById returns a tool for deleting a link by ID
 func DeleteLinkById(

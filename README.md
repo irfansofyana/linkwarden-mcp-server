@@ -6,6 +6,7 @@ A Model Context Protocol (MCP) server that provides AI assistants with programma
 
 - **Collection Management**: Create, read, and delete collections with full API support
 - **Link Management**: Create, read, archive, and delete links with comprehensive functionality
+- **Tag Management**: Get all tags and delete tags by ID
 - **Advanced Search**: Search links with powerful filtering and pagination
 - **Public Collection Access**: Access public collections and their metadata
 - **Toolset Selectivity**: Enable only the tools you need
@@ -57,7 +58,7 @@ The server can be configured using command-line flags, environment variables, or
 ./linkwarden-mcp-server \
   --base-url https://your-linkwarden-instance.com \
   --token your-api-token-here \
-  --toolsets search,collection,link
+  --toolsets search,collection,link,tags
 ```
 
 #### Environment Variables
@@ -65,7 +66,7 @@ The server can be configured using command-line flags, environment variables, or
 ```bash
 export LINKWARDEN_BASE_URL=https://your-linkwarden-instance.com
 export LINKWARDEN_TOKEN=your-api-token-here
-export TOOLSETS=search,collection,link
+export TOOLSETS=search,collection,link,tags
 ./linkwarden-mcp-server
 ```
 
@@ -97,6 +98,14 @@ export TOOLSETS=search,collection,link
 - `delete_links`: Delete multiple links by IDs
 - `archive_link`: Archive links by ID
 
+### Tags Toolset
+
+**Read Operations:**
+- `get_all_tags`: Retrieve all tags
+
+**Write Operations:**
+- `delete_tag_by_id`: Delete tags by ID
+
 ### Search Toolset
 
 - `search_links`: Search links with various filters including:
@@ -121,6 +130,11 @@ export TOOLSETS=search,collection,link
 - Delete individual or multiple links
 - Archive links for preservation
 - Support for link organization with collections and tags
+
+### Tag Management
+- List all tags from your Linkwarden instance
+- Delete tags by ID
+- Tag-based filtering in links and collections
 
 ### Collection Management
 - List all collections
@@ -253,6 +267,46 @@ The server uses a modular toolset system that allows:
 ### Transport
 
 Currently supports stdio transport for communication with MCP clients.
+
+## Technical Implementation
+
+This MCP server is built using a code-generation approach that leverages OpenAPI specifications to create type-safe API clients and MCP tools.
+
+### How It Works
+
+1. **OpenAPI Specification**: The server uses an OpenAPI specification for Linkwarden's API, originally based on the official [Linkwarden documentation](https://github.com/linkwarden/docs) with modifications to improve usability and type safety.
+
+2. **SDK Generation**: The Go client SDK is automatically generated from the OpenAPI specification using `oapi-codegen`, providing:
+   - Type-safe HTTP client
+   - Request/response structures
+   - Authentication handling
+   - Comprehensive error handling
+
+3. **MCP Tool Generation**: Each API endpoint is wrapped as an MCP tool with:
+   - Parameter validation and type conversion
+   - Structured error handling
+   - Consistent response formatting
+   - Read/write operation separation
+
+### Development Workflow
+
+```bash
+# Update OpenAPI specification
+# Edit api/linkwarden.openapi.yaml
+
+# Generate SDK
+make generate-sdk
+
+# Build and test
+make build
+make test
+```
+
+This approach ensures that the MCP server stays in sync with the Linkwarden API and provides a robust, type-safe interface for AI assistants.
+
+## Acknowledgements
+
+This project was inspired by and built upon the excellent work of the [razorpay-mcp-server](https://github.com/razorpay/razorpay-mcp-server) repository, which provided a comprehensive example of implementing MCP servers in Go. The modular architecture, toolset system, and many implementation patterns were adapted from their work.
 
 ## Contributing
 
